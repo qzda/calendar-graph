@@ -1,0 +1,26 @@
+{
+  "name": "@qzda/calendar-graph",
+  "version": "1.0.0",
+  "description": "GitHub's calendar-graph component",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qzda/calendar-graph.git"
+  },
+  "keywords": [
+    "react",
+    "vue",
+    "component",
+    "calendar-graph"
+  ],
+  "author": "qzda <qinzhidao@foxmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/qzda/calendar-graph/issues"
+  },
+  "homepage": "https://github.com/qzda/calendar-graph#readme"
+}
