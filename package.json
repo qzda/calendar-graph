@@ -6,7 +6,14 @@
   "publishConfig": {
     "access": "public"
   },
-  "scripts": {},
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:react": "cd packages/react; npm run dev",
+    "build:react": "cd packages/react; npm run build",
+    "dev:vue": "cd packages/vue; npm run dev"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/qzda/calendar-graph.git"
@@ -22,5 +29,11 @@
   "bugs": {
     "url": "https://github.com/qzda/calendar-graph/issues"
   },
-  "homepage": "https://github.com/qzda/calendar-graph#readme"
+  "homepage": "https://github.com/qzda/calendar-graph#readme",
+  "dependencies": {
+    "dayjs": "^1.11.12"
+  },
+  "devDependencies": {
+    "sass": "^1.77.8"
+  }
 }
