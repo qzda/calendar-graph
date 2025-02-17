@@ -1,10 +1,10 @@
 import template from "virtual:template";
 import dayjs from "dayjs";
-import { devLog, IsDev } from "./utils";
+import { devLog } from "./utils";
 
 // todo 根据count判断等级
 function getLevel(count: number) {
-  const levels = ["1", "2", "3", "4", "5"] as const;
+  const levels = ["0", "1", "2", "3", "4"] as const;
   return levels[(Math.random() * levels.length) >> 0];
 }
 
@@ -26,13 +26,6 @@ class CalendarGraph extends HTMLElement {
     ) as HTMLTemplateElement;
     templateElem.innerHTML = template;
     const content = templateElem.content.cloneNode(true) as HTMLTemplateElement;
-
-    // show props in pre tag
-    if (IsDev) {
-      const pre = document.createElement("pre");
-      pre.innerHTML = JSON.stringify(props, null, 2);
-      content.appendChild(pre);
-    }
 
     const dateStart = props["date-start"]
       ? dayjs(props["date-start"])
@@ -82,12 +75,13 @@ class CalendarGraph extends HTMLElement {
     content.querySelector("tbody")!.innerHTML = `${allLump7
       .map((i) => {
         return `<tr>${i
-          .map(
-            (j) =>
-              `<td data-date="${j.date.format(
-                "YYYY/MM/DD"
-              )}" data-level="${getLevel(j.count)}"></td>`
-          )
+          .map((j) => {
+            const dataDate = `data-date="${j.date.format("YYYY/MM/DD")}"`;
+            const dataLevel =
+              j.count > -1 ? `data-level="${getLevel(j.count)}"` : "";
+
+            return `<td ${dataDate} ${dataLevel}></td>`;
+          })
           .join("")}</tr>`;
       })
       .join("")}`;

@@ -1,4 +1,4 @@
-<div class="calendar-graph">
+<div>
   <table>
     <thead>
       <tr></tr>
@@ -6,10 +6,13 @@
     <tbody>
     </tbody>
   </table>
+  <slot></slot>
 </div>
 
 <style>
   :host {
+    font-size: 14px;
+
     --color-calendar-halloween-graph-day-L1-bg: #ffee4a;
     --color-calendar-halloween-graph-day-L2-bg: #ffc501;
     --color-calendar-halloween-graph-day-L3-bg: #fe9600;
@@ -34,14 +37,10 @@
     box-sizing: border-box;
   }
 
-  .calendar-graph {
-    border: 1px solid #ccc;
-    padding: 8px;
-    border-radius: 6px;
-
+  div {
     width: fit-content;
     max-width: 100%;
-    overflow-x: scroll;
+    overflow-x: auto;
   }
 
   table {
@@ -63,12 +62,15 @@
 
   tbody td {
     width: 10px;
-    fill: var(--color-calendar-graph-day-bg);
     shape-rendering: geometricPrecision;
-    background-color: var(--color-calendar-graph-day-bg);
     border-radius: 2px;
-    outline: 1px solid var(--color-calendar-graph-day-border);
     outline-offset: -1px;
+  }
+
+  td[data-level="0"] {
+    fill: var(--color-calendar-graph-day-bg);
+    background-color: var(--color-calendar-graph-day-bg);
+    outline: 1px solid var(--color-calendar-graph-day-border);
   }
 
   td[data-level="1"] {
