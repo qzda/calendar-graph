@@ -4,6 +4,7 @@ import { devLog } from "./utils";
 
 // todo 根据count判断等级
 function getLevel(count: number) {
+  devLog("todo", count);
   const levels = ["0", "1", "2", "3", "4"] as const;
   return levels[(Math.random() * levels.length) >> 0];
 }
@@ -73,8 +74,14 @@ class CalendarGraph extends HTMLElement {
     devLog("allLump7", allLump7);
 
     content.querySelector("tbody")!.innerHTML = `${allLump7
-      .map((i) => {
-        return `<tr>${i
+      .map((i, index) => {
+        const preTd = [1, 3, 5].includes(index)
+          ? `<td class="preTd"><span>${dayjs()
+              .day(index)
+              .format("ddd")}</span></td>`
+          : `<td class="preTd"></td>`;
+
+        const tds = i
           .map((j) => {
             const dataDate = `data-date="${j.date.format("YYYY/MM/DD")}"`;
             const dataLevel =
@@ -82,7 +89,9 @@ class CalendarGraph extends HTMLElement {
 
             return `<td ${dataDate} ${dataLevel}></td>`;
           })
-          .join("")}</tr>`;
+          .join("");
+
+        return `<tr>${preTd}${tds}</tr>`;
       })
       .join("")}`;
 

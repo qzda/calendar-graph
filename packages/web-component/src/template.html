@@ -1,4 +1,4 @@
-<div>
+<div class="container">
   <table>
     <thead>
       <tr></tr>
@@ -6,12 +6,34 @@
     <tbody>
     </tbody>
   </table>
-  <slot></slot>
+  <div class="footer">
+    <div class="left">
+      <slot></slot>
+    </div>
+    <div class="right">
+      Less
+      <table>
+        <tr>
+          <td data-level="0"></td>
+          <td data-level="1"></td>
+          <td data-level="2"></td>
+          <td data-level="3"></td>
+          <td data-level="4"></td>
+        </tr>
+      </table>
+      More
+    </div>
+  </div>
 </div>
 
 <style>
   :host {
-    font-size: 14px;
+    font-size: 12px;
+
+    --base-text-weight-light: 300;
+    --base-text-weight-medium: 500;
+    --base-text-weight-normal: 400;
+    --base-text-weight-semibold: 600;
 
     --color-calendar-halloween-graph-day-L1-bg: #ffee4a;
     --color-calendar-halloween-graph-day-L2-bg: #ffc501;
@@ -37,10 +59,24 @@
     box-sizing: border-box;
   }
 
-  div {
+  .container {
     width: fit-content;
     max-width: 100%;
     overflow-x: auto;
+  }
+
+  .footer {
+    padding-top: 6px;
+    font-size: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer .right {
+    display: flex;
+    align-items: center;
   }
 
   table {
@@ -50,6 +86,8 @@
 
     width: max-content;
     border-collapse: separate;
+
+    font-size: 12px;
   }
 
   thead tr {
@@ -61,39 +99,54 @@
   }
 
   tbody td {
-    width: 10px;
     shape-rendering: geometricPrecision;
     border-radius: 2px;
     outline-offset: -1px;
   }
 
   td[data-level="0"] {
+    width: 10px;
     fill: var(--color-calendar-graph-day-bg);
     background-color: var(--color-calendar-graph-day-bg);
     outline: 1px solid var(--color-calendar-graph-day-border);
   }
 
   td[data-level="1"] {
+    width: 10px;
     fill: var(--color-calendar-graph-day-L1-bg);
     background-color: var(--color-calendar-graph-day-L1-bg);
     outline: 1px solid var(--color-calendar-graph-day-L1-border);
   }
 
   td[data-level="2"] {
+    width: 10px;
     fill: var(--color-calendar-graph-day-L2-bg);
     background-color: var(--color-calendar-graph-day-L2-bg);
     outline: 1px solid var(--color-calendar-graph-day-L2-border);
   }
 
   td[data-level="3"] {
+    width: 10px;
     fill: var(--color-calendar-graph-day-L3-bg);
     background-color: var(--color-calendar-graph-day-L3-bg);
     outline: 1px solid var(--color-calendar-graph-day-L3-border);
   }
 
   td[data-level="4"] {
+    width: 10px;
     fill: var(--color-calendar-graph-day-L4-bg);
     background-color: var(--color-calendar-graph-day-L4-bg);
     outline: 1px solid var(--color-calendar-graph-day-L4-border);
+  }
+
+  td.preTd {
+    width: 30px;
+    position: relative;
+  }
+
+  td.preTd>* {
+
+    position: absolute;
+    bottom: -3px;
   }
 </style>
