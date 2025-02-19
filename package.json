@@ -22,7 +22,9 @@
     "react",
     "vue",
     "component",
-    "calendar-graph"
+    "web component",
+    "calendar graph",
+    "github contributions calendar"
   ],
   "author": "qzda <qinzhidao@foxmail.com>",
   "license": "MIT",
