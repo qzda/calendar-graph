@@ -2,11 +2,21 @@ import template from "virtual:template";
 import dayjs from "dayjs";
 import { devLog } from "./utils";
 
-// todo 根据count判断等级
 function getLevel(count: number) {
-  devLog("todo", count);
   const levels = ["0", "1", "2", "3", "4"] as const;
-  return levels[(Math.random() * levels.length) >> 0];
+  if (count === 0) {
+    return levels[0];
+  }
+  if (count < 9) {
+    return levels[1];
+  }
+  if (count < 18) {
+    return levels[2];
+  }
+  if (count < 27) {
+    return levels[3];
+  }
+  return levels[4];
 }
 
 class CalendarGraph extends HTMLElement {
@@ -47,7 +57,7 @@ class CalendarGraph extends HTMLElement {
     type Lump = { count: number; date: dayjs.Dayjs };
     const allLump: Lump[] = new Array(count).fill(0).map((_, index) => {
       return {
-        count: 0,
+        count: (Math.random() * 30) >> 0,
         date: dateStart.add(index, "day"),
       };
     });
@@ -75,11 +85,11 @@ class CalendarGraph extends HTMLElement {
 
     content.querySelector("tbody")!.innerHTML = `${allLump7
       .map((i, index) => {
-        const preTd = [1, 3, 5].includes(index)
-          ? `<td class="preTd"><span>${dayjs()
-              .day(index)
-              .format("ddd")}</span></td>`
-          : `<td class="preTd"></td>`;
+        const week = [1, 3, 5].includes(index)
+          ? dayjs().day(index).format("ddd")
+          : "";
+
+        const preTd = `<td class="preTd"><span>${week}</span></td>`;
 
         const tds = i
           .map((j) => {
@@ -95,8 +105,31 @@ class CalendarGraph extends HTMLElement {
       })
       .join("")}`;
 
+    const _months: string[] = [];
+    // 找到第一个不包含-1的行
+    const firstRowNotIncludeNegativeOne = allLump7.find(
+      (i) => i[0].count > -1
+    )!;
+    const headerTd = firstRowNotIncludeNegativeOne.map((i) => {
+      const _month = i.date.format("MMM");
+      if (_months.at(-1) === _month) {
+        return `<td></td>`;
+      } else {
+        _months.push(_month);
+        return `<td><span>${i.date.format("MMM")}</span></td>`;
+      }
+    });
+
+    content.querySelector(
+      "thead tr"
+    )!.innerHTML = `<td class="preTd"></td>${headerTd.join("")}`;
+
     shadow.appendChild(content);
   }
 }
 
-window.customElements.define("calendar-graph", CalendarGraph);
+initWebComponent();
+
+export default function initWebComponent() {
+  window.customElements.define("calendar-graph", CalendarGraph);
+}
